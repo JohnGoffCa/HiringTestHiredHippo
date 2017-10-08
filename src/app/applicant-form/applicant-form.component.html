@@ -1,3 +1,15 @@
-<p>
-  applicant-form works!
-</p>
+<form (ngSubmit)="onSubmit()" #applicantForm="ngForm">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" required>
+  </div>
+  <div class="form-group">
+    <label for="phone-number">Phone Number</label>
+    <input type="text" class="form-control" id="phone-number" required>
+  </div>
+  <button type="submit" class="btn btn-success">Submit</button>
+</form>

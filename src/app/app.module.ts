@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { SuccessComponent } from './success/success.component';
 import { FailureComponent } from './failure/failure.component';
 import { ApplicantFormComponent } from './applicant-form/applicant-form.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const appRoutes = [
   {path: '', component: ApplicantFormComponent },
@@ -19,10 +21,13 @@ const appRoutes = [
     AppComponent,
     SuccessComponent,
     FailureComponent,
-    ApplicantFormComponent
+    ApplicantFormComponent,
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
