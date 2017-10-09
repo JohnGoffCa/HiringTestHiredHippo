@@ -5,6 +5,7 @@
   justify-content: center;
   grid-area: title;
   position: fixed;
+  z-index: 1;
   top: 0;
   width: 100%;
 }
