@@ -1,15 +1,49 @@
 <form (ngSubmit)="onSubmit()" #applicantForm="ngForm">
   <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" required>
+    <label for="applicant_name">Name</label>
+    <input type="text" class="form-control" id="applicant_name"
+      required placeholder="John Smith"
+      [(ngModel)]="model.applicant_name" name="name"
+      #name="ngModel">
+    <div *ngIf="name.invalid" class="alert alert-danger">
+      <div *ngIf="name.errors.required">
+        Name is required
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" class="form-control" id="email" required>
+    <input type="email" class="form-control" id="email"
+      required email placeholder="john@smith.com"
+      [(ngModel)]="model.applicant_email" name="email"
+      #email="ngModel">
+    <div *ngIf="email.invalid" class="alert alert-danger">
+      <div *ngIf="email.errors.required">
+        Email is required
+      </div>
+      <div *ngIf="email.errors.email">
+        Email is not a valid email
+      </div>
+    </div>
   </div>
+
   <div class="form-group">
     <label for="phone-number">Phone Number</label>
-    <input type="text" class="form-control" id="phone-number" required>
+    <input type="tel" class="form-control" id="phone-number"
+      required appPhoneNumber placeholder="(xxx) xxx-xxxx"
+      [(ngModel)]="model.phone_number" name="phone_number"
+      #phone="ngModel">
+    <div *ngIf="phone.invalid" class="alert alert-danger">
+      <div *ngIf="phone.errors.required">
+        Phone number is required
+      </div>
+      <div *ngIf="phone.errors.appPhoneNumber">
+        Must be a valid phone number
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-success">Submit</button>
+
+  <button type="submit" class="btn btn-success"
+    [disabled]="!applicantForm.form.valid">Submit</button>
 </form>

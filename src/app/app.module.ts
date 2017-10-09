@@ -8,6 +8,7 @@ import { SuccessComponent } from './success/success.component';
 import { FailureComponent } from './failure/failure.component';
 import { ApplicantFormComponent } from './applicant-form/applicant-form.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PhoneNumberDirective } from './phone-number.directive';
 
 const appRoutes = [
   {path: '', component: ApplicantFormComponent },
@@ -22,7 +23,8 @@ const appRoutes = [
     SuccessComponent,
     FailureComponent,
     ApplicantFormComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PhoneNumberDirective
   ],
   imports: [
     BrowserModule,
