@@ -14,6 +14,7 @@ export class ApplicantFormComponent {
   model = new Applicant('', '');
   id: number;
   data: any;
+  err = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -27,7 +28,7 @@ export class ApplicantFormComponent {
 console.log(this.id);
           this.redirectToVictoryPage();
         }, err => {
-          console.log(err);
+          this.err = true;
         }
       );
   }
@@ -49,6 +50,4 @@ console.log(this.id);
         }
       );
   }
-  // TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.model); }
 }
