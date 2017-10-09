@@ -1,0 +1,27 @@
+.title-bar {
+  grid-area: titlebar;
+  background-color: #ffe380;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-bar h3 {
+  padding: 10px;
+}
+
+.main-content {
+  grid-area: content;
+}
+
+.bottom-bar {
+  grid-area: bottombar;
+  background-color: #ffe380;
+  height: 1em;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+}
+
