@@ -2,4 +2,5 @@
   padding: 15px;
   min-height: 580px;
   background: rgba(248, 115, 78, 0.78);
+  position: relative;
 }
