@@ -1,21 +1,26 @@
 .title-bar {
-  grid-area: titlebar;
   background-color: #ffe380;
   display:flex;
   align-items: center;
   justify-content: center;
+  grid-area: title;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .title-bar h3 {
-  padding: 10px;
+  padding: 5px;
+  font-family: "Brush Script MT", cursive;
 }
 
 .main-content {
-  grid-area: content;
+  grid-area: maincontent;
+  margin: 10px;
+  margin-top: 100px;
 }
 
 .bottom-bar {
-  grid-area: bottombar;
   background-color: #ffe380;
   height: 1em;
   position: fixed;
@@ -23,5 +28,6 @@
   left: 0px;
   right: 0px;
   margin-bottom: 0px;
+  grid-area: footer;
 }
 

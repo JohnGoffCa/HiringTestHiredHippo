@@ -1,3 +1,9 @@
+#applicant-form {
+  padding: 15px;
+  min-height: 580px;
+  background: rgba(113, 157, 158, 0.78); /* values came from the provided PSD */
+}
+
 .ng-valid[required], .ng-valid.required  {
   border-left: 5px solid #42A948; /* green */
 }
