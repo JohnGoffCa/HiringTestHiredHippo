@@ -2,11 +2,14 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterOutlet, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [
         AppComponent
       ],
@@ -26,7 +29,8 @@ describe('AppComponent', () => {
   it('should render title in a div tag with class "grid-root"', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.grid-root')).toBeTruthy();
+    const compiled = fixture.debugElement;
+    const elem = compiled.query(By.css('#grid-root'));
+    expect(elem.nativeElement).toBeTruthy();
   }));
 });
