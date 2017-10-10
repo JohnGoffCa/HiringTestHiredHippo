@@ -26,7 +26,7 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('Charlie and the Chocolate Kingdom');
   }));
-  it('should render title in a div tag with class "grid-root"', async(() => {
+  it('should render in a div tag with class "grid-root"', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement;

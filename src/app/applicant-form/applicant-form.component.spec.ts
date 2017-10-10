@@ -32,4 +32,8 @@ describe('ApplicantFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should redirect to victory page on success', () => {
+  });
+  it('should redirect to loss page on failure', () => {
+  });
 });

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Applicant } from '../applicant';
 import { ApplicantResponse } from '../applicant-response';
+import { API_URL } from '../../config';
 
 @Component({
   selector: 'app-applicant-form',
@@ -18,34 +19,37 @@ export class ApplicantFormComponent {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  onSubmit() {
-    this.http.post('http://ec2-13-59-135-248.us-east-2.compute.amazonaws.com:3000/entries', this.model)
+  onSubmit(url: string) {
+    this.http.post(url, this.model)
       .subscribe(
         data => {
           this.data = data;
           this.id = JSON.parse(this.data).applicant_id;
-          this.redirectToVictoryPage();
+          this.redirectToVictoryPage(this.id);
         }, err => {
           this.err = true;
         }
       );
   }
 
-  redirectToVictoryPage() {
-    this.http.get('http://ec2-13-59-135-248.us-east-2.compute.amazonaws.com:3000/status/' + this.id)
-      .subscribe(
-        data => {
-          switch (data['status']) {
-            case 'Won': {
-              this.router.navigateByUrl('success');
-              break;
-            }
-            case 'Lost': {
-              this.router.navigateByUrl('failure');
-              break;
-            }
+  redirectToVictoryPage(id: number) {
+    this.callApi(API_URL, id).subscribe(
+      data => {
+        switch (data['status']) {
+          case 'Won': {
+            this.router.navigateByUrl('success');
+            break;
+          }
+          case 'Lost': {
+            this.router.navigateByUrl('failure');
+            break;
           }
         }
-      );
+      }
+    );
+  }
+
+  callApi(url: string, id: number) {
+    return this.http.get(url + '/' + id);
   }
 }

@@ -29,6 +29,6 @@ describe('SuccessComponent', () => {
   it('should route to homepage', () => {
     const navigateSpy = spyOn((<any>component).router, 'navigateByUrl');
     component.goBack();
-    expect(navigateSpy).toHaveBeenCalledWith(['']);
+    expect(navigateSpy).toHaveBeenCalledWith('');
   });
 });

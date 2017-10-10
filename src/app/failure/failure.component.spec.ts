@@ -11,7 +11,7 @@ describe('FailureComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ FailureComponent ],
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes([])
       ]
     })
     .compileComponents();
@@ -25,5 +25,10 @@ describe('FailureComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should route to homepage', () => {
+    const navigateSpy = spyOn((<any>component).router, 'navigateByUrl');
+    component.goBack();
+    expect(navigateSpy).toHaveBeenCalledWith('');
   });
 });
