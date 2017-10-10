@@ -11,6 +11,22 @@ import (
 
 var entries []Applicant
 
+func listEntrants(w http.ResponseWriter, r *http.Request) {
+	e := json.NewEncoder(w)
+	for _, v := range entries {
+		e.Encode(v)
+	}
+}
+
+func addEntrant(w http.ResponseWriter, r *http.Request) {
+}
+
+func updateEntrant(w http.ResponseWriter, r *http.Request) {
+}
+
+func deleteEntrant(w http.ResponseWriter, r *http.Request) {
+}
+
 func listEntrant(w http.ResponseWriter, r *http.Request) {
 	id := vestigo.Param(r, "id")
 	entrant, err := findEntrantByID(id)
@@ -20,8 +36,6 @@ func listEntrant(w http.ResponseWriter, r *http.Request) {
 	e := json.NewEncoder(w)
 	e.Encode(entrant)
 }
-
-func addEntrant(w http.ResponseWriter, r *http.Request) {
 
 func findEntrantByID(id string) (Applicant, error) {
 	for _, v := range entries {
