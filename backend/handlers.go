@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/JohnTheScout/HiringTestHiredHippo/backend/types"
 	"github.com/husobee/vestigo"
 )
 
@@ -55,9 +56,13 @@ func addEntrant(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
 		return
 	}
-	newEntrant.id = newID
+	err = newEntrant.SetID(newID)
+	if err != nil {
+		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
+		return
+	}
 	entries = append(entries, &newEntrant)
-	fmt.Fprintf(w, `{"applicant_id":%d,"success":true}`, newEntrant.id)
+	fmt.Fprintf(w, `{"applicant_id":%d,"success":true}`, newEntrant.ID())
 }
 
 func updateEntrant(w http.ResponseWriter, r *http.Request) {
@@ -123,9 +128,9 @@ func entrantHasWon(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusNotFound)
 		return
 	}
-	entrant.won = didWin()
+	entrant.SetWon(didWin())
 	status := "Lost"
-	if entrant.won {
+	if entrant.Won() {
 		status = "Won"
 	}
 	fmt.Fprintf(w, `{"status":"`+status+`","success":true}`)
@@ -156,30 +161,13 @@ func newRandomID() (int, error) {
 	return newIDValue, nil
 }
 
-func copyMessageToEntrant(entrant *Applicant, m Message) error {
-	if m.Phone != "" {
-		phoneNumber, err := strconv.Atoi(m.Phone)
-		if err != nil {
-			return err
-		}
-		entrant.phoneNumber = phoneNumber
-	}
-	if m.Name != "" {
-		entrant.applicantName = m.Name
-	}
-	if m.Email != "" {
-		entrant.applicantEmail = m.Email
-	}
-	return nil
-}
-
 func findEntrantByID(idString string) (*Applicant, error) {
 	id, err := strconv.Atoi(idString)
 	if err != nil {
 		return &Applicant{}, errors.New("ID must be an integer")
 	}
 	for _, v := range entries {
-		if v.id == id {
+		if v.ID() == id {
 			return v, nil
 		}
 	}
@@ -201,7 +189,7 @@ func findEntrantIndexByID(idString string) (int, error) {
 
 func checkEntrantExists(name, email string) bool {
 	for _, v := range entries {
-		if v.applicantName == name || v.applicantEmail == email {
+		if v.Name() == name || v.Email() == email {
 			return true
 		}
 	}
