@@ -24,7 +24,7 @@ export class ApplicantFormComponent {
       .subscribe(
         data => {
           this.data = data;
-          this.id = JSON.parse(this.data).applicant_id;
+          this.id = this.data.applicant_id;
           this.redirectToVictoryPage(this.id);
         }, err => {
           this.err = true;
