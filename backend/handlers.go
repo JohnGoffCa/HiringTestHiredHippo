@@ -4,12 +4,15 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math/rand"
 	"net/http"
 
 	"github.com/husobee/vestigo"
 )
 
-var entries []Applicant
+var entries []*Applicant
+
+var numWinners int
 
 func listEntrants(w http.ResponseWriter, r *http.Request) {
 	e := json.NewEncoder(w)
@@ -19,6 +22,7 @@ func listEntrants(w http.ResponseWriter, r *http.Request) {
 }
 
 func addEntrant(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(*r)
 }
 
 func updateEntrant(w http.ResponseWriter, r *http.Request) {
@@ -43,6 +47,14 @@ func entrantHasWon(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, `{"error":"%s"}`, err)
 	}
+}
+
+func didWin() bool {
+	if rand.Intn(100) == 1 && numWinners < 5 {
+		numWinners++
+		return true
+	}
+	return false
 }
 
 func findEntrantByID(id string) (Applicant, error) {

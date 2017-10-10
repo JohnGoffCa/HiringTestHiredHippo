@@ -9,8 +9,8 @@ type Applicant struct {
 	won            bool
 }
 
-func NewApplicant(name string, email string, phoneNum int) Applicant {
-	return Applicant{
+func NewApplicant(name string, email string, phoneNum int) *Applicant {
+	return &Applicant{
 		applicantName:  name,
 		applicantEmail: email,
 		phoneNumber:    phoneNum,
