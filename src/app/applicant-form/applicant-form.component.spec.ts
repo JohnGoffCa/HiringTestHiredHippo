@@ -1,4 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterOutlet, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ApplicantFormComponent } from './applicant-form.component';
 
@@ -8,7 +12,13 @@ describe('ApplicantFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplicantFormComponent ]
+      imports: [
+        RouterTestingModule,
+        FormsModule,
+        HttpClientModule
+      ],
+      declarations: [ ApplicantFormComponent ],
+      providers: [ RouterOutlet ]
     })
     .compileComponents();
   }));
@@ -21,5 +31,9 @@ describe('ApplicantFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should redirect to victory page on success', () => {
+  });
+  it('should redirect to loss page on failure', () => {
   });
 });

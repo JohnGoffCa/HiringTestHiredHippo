@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Applicant } from '../applicant';
 import { ApplicantResponse } from '../applicant-response';
+import { API_URL } from '../../config';
 
 @Component({
   selector: 'app-applicant-form',
@@ -19,14 +20,12 @@ export class ApplicantFormComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    this.http.post('api/entries', this.model)
+    this.http.post(API_URL + '/entries', this.model)
       .subscribe(
         data => {
           this.data = data;
           this.id = JSON.parse(this.data).applicant_id;
-// TODO remove this
-console.log(this.data);
-          this.redirectToVictoryPage();
+          this.redirectToVictoryPage(this.id);
         }, err => {
           this.err = true;
           console.log(err);
@@ -34,21 +33,24 @@ console.log(this.data);
       );
   }
 
-  redirectToVictoryPage() {
-    this.http.get('api/status/' + this.id)
-      .subscribe(
-        data => {
-          switch (data['status']) {
-            case 'Won': {
-              this.router.navigateByUrl('success');
-              break;
-            }
-            case 'Lost': {
-              this.router.navigateByUrl('failure');
-              break;
-            }
+  redirectToVictoryPage(id: number) {
+    this.callApi(API_URL + '/status', id).subscribe(
+      data => {
+        switch (data['status']) {
+          case 'Won': {
+            this.router.navigateByUrl('success');
+            break;
+          }
+          case 'Lost': {
+            this.router.navigateByUrl('failure');
+            break;
           }
         }
-      );
+      }
+    );
+  }
+
+  callApi(url: string, id: number) {
+    return this.http.get(url + '/' + id);
   }
 }
