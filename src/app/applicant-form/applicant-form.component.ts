@@ -19,7 +19,7 @@ export class ApplicantFormComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    this.http.post('http://ec2-13-59-135-248.us-east-2.compute.amazonaws.com:3000/entries', this.model)
+    this.http.post('api/entries', this.model)
       .subscribe(
         data => {
           this.data = data;
@@ -29,12 +29,13 @@ console.log(this.data);
           this.redirectToVictoryPage();
         }, err => {
           this.err = true;
+          console.log(err);
         }
       );
   }
 
   redirectToVictoryPage() {
-    this.http.get('http://ec2-13-59-135-248.us-east-2.compute.amazonaws.com:3000/status/' + this.id)
+    this.http.get('api/status/' + this.id)
       .subscribe(
         data => {
           switch (data['status']) {

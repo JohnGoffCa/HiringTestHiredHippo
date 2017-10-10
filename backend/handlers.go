@@ -45,7 +45,11 @@ func addEntrant(w http.ResponseWriter, r *http.Request) {
 
 	// copy m to newEntrant and store its address in entries
 	// because its address is still in use newEntrant won't be garbage collected
-	newEntrant.applicantEmail, newEntrant.applicantName, newEntrant.phoneNumber = m.Email, m.Name, m.Phone
+	err = copyMessageToEntrant(&newEntrant, m)
+	if err != nil {
+		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
+		return
+	}
 	newID, err := newRandomID()
 	if err != nil {
 		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
@@ -71,14 +75,10 @@ func updateEntrant(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
 		return
 	}
-	if m.Name != "" {
-		entrant.applicantName = m.Name
-	}
-	if m.Email != "" {
-		entrant.applicantEmail = m.Email
-	}
-	if m.Phone != 0 {
-		entrant.phoneNumber = m.Phone
+	err = copyMessageToEntrant(entrant, m)
+	if err != nil {
+		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
+		return
 	}
 	fmt.Fprintf(
 		w,
@@ -154,6 +154,23 @@ func newRandomID() (int, error) {
 		newIDValue = 10000000 + int(randBig.Int64())
 	}
 	return newIDValue, nil
+}
+
+func copyMessageToEntrant(entrant *Applicant, m Message) error {
+	if m.Phone != "" {
+		phoneNumber, err := strconv.Atoi(m.Phone)
+		if err != nil {
+			return err
+		}
+		entrant.phoneNumber = phoneNumber
+	}
+	if m.Name != "" {
+		entrant.applicantName = m.Name
+	}
+	if m.Email != "" {
+		entrant.applicantEmail = m.Email
+	}
+	return nil
 }
 
 func findEntrantByID(idString string) (*Applicant, error) {

@@ -13,7 +13,7 @@ type Applicant struct {
 type Message struct {
 	Name  string `json:"applicant_name"`
 	Email string `json:"applicant_email"`
-	Phone int    `json:"phone_number"`
+	Phone string `json:"phone_number"`
 }
 
 func NewApplicant(name string, email string, phoneNum int) *Applicant {
