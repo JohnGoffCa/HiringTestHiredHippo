@@ -1,4 +1,6 @@
-# HiredHippo
+# Charlie and the Chocolate Kingdom
+
+Welcome to Charlie's Chocolate Kingdom! This is a SPA page for a contest entry page. It was built with Angular 2, with an optional backend written in Go.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.5.
 
@@ -6,9 +8,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Go Backend 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+If you wish to use the Go server, run `./build-and-serve.sh`, which will compile the Angular SPA, the Go server, and serve the project on `localhost:8080`
 
 ## Build
 
@@ -17,11 +19,3 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
