@@ -1,4 +1,4 @@
 #!/bin/bash
-ng build &&
+ng build --env=prod &&
 go build -o charlie ./backend/ &&
 ./charlie
