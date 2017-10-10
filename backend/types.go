@@ -6,4 +6,13 @@ type Applicant struct {
 	applicantName  string
 	applicantEmail string
 	phoneNumber    int
+	won            bool
+}
+
+func NewApplicant(name string, email string, phoneNum int) Applicant {
+	return Applicant{
+		applicantName:  name,
+		applicantEmail: email,
+		phoneNumber:    phoneNum,
+	}
 }

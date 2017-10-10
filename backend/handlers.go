@@ -31,10 +31,18 @@ func listEntrant(w http.ResponseWriter, r *http.Request) {
 	id := vestigo.Param(r, "id")
 	entrant, err := findEntrantByID(id)
 	if err != nil {
-		fmt.Fprintf(w, `{"error":"%s"}}`, err)
+		fmt.Fprintf(w, `{"error":"%s"}`, err)
 	}
 	e := json.NewEncoder(w)
 	e.Encode(entrant)
+}
+
+func entrantHasWon(w http.ResponseWriter, r *http.Request) {
+	id := vestigo.Param(r, "id")
+	entrant, err := findEntrantByID(id)
+	if err != nil {
+		fmt.Fprintf(w, `{"error":"%s"}`, err)
+	}
 }
 
 func findEntrantByID(id string) (Applicant, error) {
@@ -43,5 +51,5 @@ func findEntrantByID(id string) (Applicant, error) {
 			return v, nil
 		}
 	}
-	return nil, errors.New("could not find entrant with that ID")
+	return Applicant{}, errors.New("could not find entrant with that ID")
 }
