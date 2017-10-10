@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterOutlet, Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 import { ApplicantFormComponent } from './applicant-form.component';
 
@@ -8,7 +11,9 @@ describe('ApplicantFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplicantFormComponent ]
+      imports: [ RouterTestingModule ],
+      declarations: [ ApplicantFormComponent ],
+      providers: [ RouterOutlet ]
     })
     .compileComponents();
   }));

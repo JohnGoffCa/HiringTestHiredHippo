@@ -24,8 +24,6 @@ export class ApplicantFormComponent {
         data => {
           this.data = data;
           this.id = JSON.parse(this.data).applicant_id;
-// TODO remove this
-console.log(this.id);
           this.redirectToVictoryPage();
         }, err => {
           this.err = true;
