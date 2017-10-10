@@ -19,8 +19,8 @@ export class ApplicantFormComponent {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  onSubmit(url: string) {
-    this.http.post(url, this.model)
+  onSubmit() {
+    this.http.post(API_URL + '/entries', this.model)
       .subscribe(
         data => {
           this.data = data;
@@ -33,7 +33,7 @@ export class ApplicantFormComponent {
   }
 
   redirectToVictoryPage(id: number) {
-    this.callApi(API_URL, id).subscribe(
+    this.callApi(API_URL + '/status', id).subscribe(
       data => {
         switch (data['status']) {
           case 'Won': {
