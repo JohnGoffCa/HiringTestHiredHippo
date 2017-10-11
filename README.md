@@ -2,7 +2,9 @@
 
 Welcome to Charlie's Chocolate Kingdom! This is a SPA page for a contest entry page. It was built with Angular 2, with an optional backend written in Go.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.5.
+## Dependencies
+This project requires [Angular CLI](https://github.com/angular/angular-cli) version 1.4.5.
+It also requires Go version 1.9. [Get it here](https://golang.org/dl/) or your favourite package manager
 
 ## Instructions
 install dependencies with `npm install`. Then run development server or Go server to access app.
