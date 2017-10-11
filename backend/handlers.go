@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/JohnTheScout/HiringTestHiredHippo/backend/types"
 	"github.com/husobee/vestigo"
 )
 
@@ -46,7 +45,7 @@ func addEntrant(w http.ResponseWriter, r *http.Request) {
 
 	// copy m to newEntrant and store its address in entries
 	// because its address is still in use newEntrant won't be garbage collected
-	err = copyMessageToEntrant(&newEntrant, m)
+	err = newEntrant.CopyMessageToEntrant(m)
 	if err != nil {
 		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
 		return
@@ -62,7 +61,12 @@ func addEntrant(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	entries = append(entries, &newEntrant)
-	fmt.Fprintf(w, `{"applicant_id":%d,"success":true}`, newEntrant.ID())
+	id, err := newEntrant.ID()
+	if err != nil {
+		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
+		return
+	}
+	fmt.Fprintf(w, `{"applicant_id":%d,"success":true}`, id)
 }
 
 func updateEntrant(w http.ResponseWriter, r *http.Request) {
@@ -80,7 +84,7 @@ func updateEntrant(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
 		return
 	}
-	err = copyMessageToEntrant(entrant, m)
+	err = entrant.CopyMessageToEntrant(m)
 	if err != nil {
 		http.Error(w, `{"error":"`+err.Error()+`","success":false}`, http.StatusBadRequest)
 		return
@@ -137,7 +141,7 @@ func entrantHasWon(w http.ResponseWriter, r *http.Request) {
 }
 
 func didWin() bool {
-	if bRand, _ := rand.Int(rand.Reader, big.NewInt(100)); bRand.Int64() == 1 && numWinners < 5 {
+	if bRand, _ := rand.Int(rand.Reader, big.NewInt(100)); int(bRand.Int64()) == 1 && numWinners < 5 {
 		numWinners++
 		return true
 	}
@@ -167,7 +171,7 @@ func findEntrantByID(idString string) (*Applicant, error) {
 		return &Applicant{}, errors.New("ID must be an integer")
 	}
 	for _, v := range entries {
-		if v.ID() == id {
+		if vID, _ := v.ID(); vID == id {
 			return v, nil
 		}
 	}
@@ -189,7 +193,9 @@ func findEntrantIndexByID(idString string) (int, error) {
 
 func checkEntrantExists(name, email string) bool {
 	for _, v := range entries {
-		if v.Name() == name || v.Email() == email {
+		vName, _ := v.Name()
+		vEmail, _ := v.Email()
+		if vName == name || vEmail == email {
 			return true
 		}
 	}

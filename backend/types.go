@@ -1,7 +1,8 @@
-package types
+package main
 
 import (
 	"errors"
+	"strconv"
 	"sync"
 )
 
@@ -12,7 +13,7 @@ type Applicant struct {
 	applicantEmail string
 	phoneNumber    int
 	won            bool
-	mu             *sync.Mutex
+	mu             sync.Mutex
 }
 
 // Message is for the raw json to come into, will get saved into an Applicant
@@ -28,7 +29,6 @@ func NewApplicant(name string, email string, phoneNum int) *Applicant {
 		applicantName:  name,
 		applicantEmail: email,
 		phoneNumber:    phoneNum,
-		mu:             &sync.Mutex{},
 	}
 }
 
@@ -80,7 +80,7 @@ func (a *Applicant) Name() (string, error) {
 // SetName sets the applicantName
 func (a *Applicant) SetName(newName string) {
 	a.mu.Lock()
-	a.id = newName
+	a.applicantName = newName
 	a.mu.Unlock()
 }
 
