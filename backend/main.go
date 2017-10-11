@@ -1,16 +1,24 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/husobee/vestigo"
+)
+
+var (
+	port = 8080
 )
 
 func main() {
 	router := vestigo.NewRouter()
 	ch := make(chan byte, 1) //create channel with size of 1 byte, to prevent premature exit
+	flag.IntVar(&port, "p", 8080, "int: port you'd like the go server to run on. Defaults to 8080")
+	flag.Parse()
 
 	// ROUTES
 	// Serve Angular SPA from root ('/').
@@ -24,12 +32,13 @@ func main() {
 	router.Get("/api/entries/:id", listEntrant)
 	router.Get("/api/status/:id", entrantHasWon)
 
+	portString := strconv.Itoa(port)
 	// Start server in goroutine to prevent blocking
 	go func() {
-		log.Fatal("ListenAndServe:", http.ListenAndServe(":8080", router))
+		log.Fatal("ListenAndServe:", http.ListenAndServe(":"+portString, router))
 		ch <- 1
 	}()
 
-	fmt.Println("Listening on port :8080")
+	fmt.Println("Listening on port :" + portString)
 	<-ch // receive from channel, program won't exit until something gets received
 }
