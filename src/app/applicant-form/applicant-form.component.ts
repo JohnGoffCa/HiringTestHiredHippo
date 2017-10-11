@@ -24,7 +24,11 @@ export class ApplicantFormComponent {
       .subscribe(
         data => {
           this.data = data;
-          this.id = this.data.applicant_id;
+          if (environment.API_URL === 'api') {
+            this.id = this.data.applicant_id;
+          } else {
+            this.id = JSON.parse(this.data).applicant_id; // funky workaround, can't seem to access the data any other way
+          }
           this.redirectToVictoryPage(this.id);
         }, err => {
           this.err = true;
