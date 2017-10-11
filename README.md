@@ -5,19 +5,16 @@ Welcome to Charlie's Chocolate Kingdom! This is a SPA page for a contest entry p
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.5.
 
 ## Instructions
-install dependencies with `npm install`. Then run development server or Go server to access app.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+install dependencies with `npm install`. Then run `npm start` to compile and access app.
 
 ## Go Backend 
 
-If you wish to use the Go server, run `./build-and-serve.sh`, which will compile the Angular SPA, the Go server, and serve the project on `localhost:8080`
+If you wish to use the Go server, run `npm run local`, which will compile the Angular SPA, the Go server, and serve the project on `localhost:8080`
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `npm run build` to build the project. By default, this uses the remote backend. The build artifacts will be stored in the `dist/` directory. 
+Run `npm run build-local` to build an app that will use the Go backend instead.
 
 ## Running unit tests
 
