@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npm build && go build -o charlie ./backend/ && ./charlie",
+    "start": "npm run build && go build -o charlie ./backend/ && ./charlie",
     "build": "ng build --env=prod",
     "local": "npm run build-local && go build -o charlie ./backend/ && ./charlie",
     "build-local": "ng build --env=local",
