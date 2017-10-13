@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { Applicant } from '../applicant';
 import { ApplicantResponse } from '../applicant-response';
-import { API_URL } from '../../config';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-applicant-form',
@@ -20,20 +20,25 @@ export class ApplicantFormComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    this.http.post(API_URL + '/entries', this.model)
+    this.http.post(environment.API_URL + '/entries', this.model)
       .subscribe(
         data => {
           this.data = data;
-          this.id = JSON.parse(this.data).applicant_id;
+          if (environment.API_URL === 'api') {
+            this.id = this.data.applicant_id;
+          } else {
+            this.id = JSON.parse(this.data).applicant_id; // funky workaround, can't seem to access the data any other way
+          }
           this.redirectToVictoryPage(this.id);
         }, err => {
           this.err = true;
+          console.log(err);
         }
       );
   }
 
   redirectToVictoryPage(id: number) {
-    this.callApi(API_URL + '/status', id).subscribe(
+    this.callApi(environment.API_URL + '/status', id).subscribe(
       data => {
         switch (data['status']) {
           case 'Won': {

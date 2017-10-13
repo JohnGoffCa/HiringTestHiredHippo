@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run build && go build -o charlie ./backend/ && ./charlie",
+    "build": "ng build --env=prod",
+    "local": "npm run build-local && go build -o charlie ./backend/ && ./charlie",
+    "build-local": "ng build --env=local",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "dev": "ng serve"
   },
   "private": true,
   "dependencies": {
